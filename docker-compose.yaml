@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  frontend:
+    image: react_frontend
+    container_name: react_frontend
+    build:
+      context: ./inventory-frontend
+      dockerfile: Dockerfile
+    volumes:
+       - ./inventory-frontend:/app
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    
+  backend1:
+    image: backend_inventory
+    container_name: backend_inventory
+    build:
+      context: ./inventory-frontend
+    volumes:
+      - ./inventory-frontend:/code
+    command: python consumer.py
+    ports:
+      - 8000:8000
+  backend2:
+    image: backend_payment
+    container_name: backend_payment
+    build:
+      context: ./payment
+    volumes:
+      - ./payment:/code
+    command: python consumer.py
+    ports:
+      - 8001:8001

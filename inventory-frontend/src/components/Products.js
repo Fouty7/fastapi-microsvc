@@ -1,3 +1,4 @@
+import React from "react";
 import {Wrapper} from "./Wrapper";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
@@ -48,8 +49,7 @@ export const Products = () => {
                         <td>{product.quantity}</td>
                         <td>
                             <a href="#" className="btn btn-sm btn-outline-secondary"
-                               onClick={e => del(product.id)}
-                            >
+                               onClick={e => del(product.id)}>
                                 Delete
                             </a>
                         </td>
