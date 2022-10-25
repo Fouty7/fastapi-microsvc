@@ -8,7 +8,7 @@ export const Products = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch('http://localhost:8000/products');
+            const response = await fetch('http://172.17.0.2:8000/products');
             const content = await response.json();
             setProducts(content);
         })();
@@ -16,7 +16,7 @@ export const Products = () => {
 
     const del = async id => {
         if (window.confirm('Are you sure to delete this record?')) {
-            await fetch(`http://localhost:8000/products/${id}`, {
+            await fetch(`http://172.17.0.2:8000/products/${id}`, {
                 method: 'DELETE'
             });
 
@@ -48,7 +48,7 @@ export const Products = () => {
                         <td>{product.price}</td>
                         <td>{product.quantity}</td>
                         <td>
-                            <a href="#" className="btn btn-sm btn-outline-secondary"
+                            <a href="/#" className="btn btn-sm btn-outline-secondary"
                                onClick={e => del(product.id)}>
                                 Delete
                             </a>

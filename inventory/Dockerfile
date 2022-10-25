@@ -2,12 +2,18 @@ FROM python:3.9
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt .
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN python consumer.py
 
-COPY ./inventory /code/inventory
+COPY . .
 
-CMD ["uvicorn", "inventory.main:app", "--port", "8000"]
+EXPOSE 10086
+EXPOSE 8001
+EXPOSE 443
+EXPOSE 8000
+EXPOSE 80
+
+
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
 

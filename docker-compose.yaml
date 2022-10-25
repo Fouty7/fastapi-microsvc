@@ -10,26 +10,25 @@ services:
        - ./inventory-frontend:/app
     ports:
       - 3000:3000
-    stdin_open: true
-    tty: true
-    
-  backend1:
-    image: backend_inventory
+    network_mode: bridge  
+
+  backend_product:
+    image: backend
     container_name: backend_inventory
     build:
-      context: ./inventory-frontend
+      context: ./inventory
     volumes:
-      - ./inventory-frontend:/code
-    command: python consumer.py
+      - ./inventory:/code
     ports:
       - 8000:8000
-  backend2:
+    network_mode: bridge  
+  backend_payment:
     image: backend_payment
     container_name: backend_payment
     build:
       context: ./payment
     volumes:
       - ./payment:/code
-    command: python consumer.py
     ports:
       - 8001:8001
+    network_mode: bridge  
