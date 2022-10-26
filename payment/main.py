@@ -3,13 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.background import BackgroundTasks
 from redis_om import get_redis_connection, HashModel
 from starlette.requests import Request
-import requests, time
+import requests
+import time
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://172.17.0.4:3000'],
+    # allow_origins=['http://react_frontend:3000'],
+    allow_origins=['*'],
     allow_methods=['*'],
     allow_headers=['*']
 )
@@ -43,7 +45,8 @@ def get(pk: str):
 async def create(request: Request, background_tasks: BackgroundTasks):  # id, quantity
     body = await request.json()
 
-    req = requests.get('http://localhost:8000/products/%s' % body['id'])
+    req = requests.get(
+        'http://backend_inventory:8000/products/%s' % body['id'])
     product = req.json()
 
     order = Order(

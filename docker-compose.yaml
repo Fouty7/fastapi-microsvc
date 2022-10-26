@@ -1,18 +1,18 @@
-version: "3.8"
+version: "3.9"
 services:
   frontend:
     image: react_frontend
     container_name: react_frontend
+    depends_on:
+      - backend_inventory
+      - backend_payment
     build:
       context: ./inventory-frontend
-      dockerfile: Dockerfile
     volumes:
-       - ./inventory-frontend:/app
+      - ./inventory-frontend:/app
     ports:
       - 3000:3000
-    network_mode: bridge  
-
-  backend_product:
+  backend_inventory:
     image: backend
     container_name: backend_inventory
     build:
@@ -21,7 +21,6 @@ services:
       - ./inventory:/code
     ports:
       - 8000:8000
-    network_mode: bridge  
   backend_payment:
     image: backend_payment
     container_name: backend_payment
@@ -31,4 +30,3 @@ services:
       - ./payment:/code
     ports:
       - 8001:8001
-    network_mode: bridge  
